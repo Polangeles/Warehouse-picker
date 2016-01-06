@@ -1,0 +1,77 @@
+<style>
+  .newLine {clear: all;}
+  .leftBox {float: left;
+	  border: 3px solid red;}
+  .rightBox {float: left;
+  	border: 3px solid blue;}
+</style>
+
+<h1>Warehouse Search Engine</h1>
+
+<%= form_tag :search do %>
+<table>
+  <tr>
+<td class="leftBox">
+    <h3> search by bay </h3>
+    <%= text_field :search, :by_bay, value: @by_bay %>
+</td>
+<td class="rightBox">
+<table>
+  <thead>
+    <tr>
+      <th>Product name</th>
+      <th>Bay</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.bay_code %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  distance: <%= @distance %>
+</td>
+</tr>
+
+<tr>
+<td class="newLine leftBox">
+    <h3> search by product name </h3>
+    <%= text_field :search, :by_name, value: @by_name %>
+</td>
+
+<td class="rightBox">
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bays.each do |bay| %>
+      <tr>
+        <td><%= bay.code %></td>
+        <td><%= bay.position %></td>
+        <td><%= link_to 'Show', bay %></td>
+        <td><%= link_to 'Edit', edit_bay_path(bay) %></td>
+        <td><%= link_to 'Destroy', bay, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</td>
+</tr>
+</table>
+    <%= submit_tag "Search!" %>
+<% end %>
